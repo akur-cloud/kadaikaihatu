@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>課題撃破RPG</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="game-container">
+    <!-- ヘッダー：プレイヤー（ユーザー）ステータス -->
+    <header class="player-status">
+      <div class="avatar-box">
+        <div class="pixel-avatar">🧙‍♂️</div>
+        <div class="player-info">
+          <div class="level">Lv.<span id="player-level">1</span> 勇者ユーザー</div>
+          <div class="hp-bar-container">
+            <span class="bar-label">HP</span>
+            <div class="hp-bar"><div id="player-hp-fill" class="hp-fill" style="width: 100%;"></div></div>
+            <span id="player-hp-text" class="bar-value">100/100</span>
+          </div>
+          <div class="exp-bar-container">
+            <span class="bar-label">EXP</span>
+            <div class="exp-bar"><div id="player-exp-fill" class="exp-fill" style="width: 0%;"></div></div>
+            <span id="player-exp-text" class="bar-value">0/100</span>
+          </div>
+        </div>
+      </div>
+      <div class="status-badge">
+        <span id="pinch-status-badge" class="badge safe">NORMAL</span>
+      </div>
+    </header>
+
+    <!-- タブ切り替え -->
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="battle-view">⚔️ ボス一覧 (課題)</button>
+      <button class="tab-btn" data-tab="gmail-view">📩 Gmail連携</button>
+      <button class="tab-btn" data-tab="sns-view">🔒 SNS制限情報</button>
+    </nav>
+
+    <!-- メインコンテンツエリア -->
+    <main class="content-area">
+      <!-- ⚔️ バトル画面 (課題一覧) -->
+      <section id="battle-view" class="tab-content active">
+        <h2>⚔️ 出現中の担当教員（課題ボス）</h2>
+        <div id="enemy-list" class="enemy-list">
+          <!-- JSで動的にボスカードが挿入されます -->
+        </div>
+      </section>
+
+      <!-- 📩 Gmail連携画面 -->
+      <section id="gmail-view" class="tab-content">
+        <h2>📩 Gmail通知メールから課題を自動登録</h2>
+        <p class="desc">Google ClassroomやMoodle等の通知メール本文を貼り付けると、自動解析して担当教員ボスを生成します。</p>
+        <textarea id="gmail-input" placeholder="【Google Classroom】新しい課題が投稿されました: アルゴリズムとデータ構造
+担当: 山田太郎 教授
+締め切り: 2026/10/25 23:59..."></textarea>
+        <button id="parse-gmail-btn" class="action-btn">✨ メールを解析して課題ボスを呼び出す</button>
+      </section>
+
+      <!-- 🔒 SNS制限設定画面 -->
+      <section id="sns-view" class="tab-content">
+        <h2>🔒 SNS制限機能について</h2>
+        <p class="desc">締め切りまで24時間以内の課題（ピンチ状態）が発生すると、自動的に対象のSNS（X/YouTube/Instagram）がブロックされます。</p>
+        <div class="sns-list">
+          <label><input type="checkbox" checked disabled> X (旧Twitter)</label>
+          <label><input type="checkbox" checked disabled> YouTube</label>
+          <label><input type="checkbox" checked disabled> Instagram</label>
+        </div>
+        <p class="desc" style="color: #ffa502; margin-top: 10px;">※制限を解除するには、実際にSNSを開いた画面上で課題の解答画像をアップロードしてください。</p>
+      </section>
+    </main>
+  </div>
+
+  <!-- スクリプトの読み込み（※snsBlocker.jsは削除） -->
+  <script src="js/game.js"></script>
+  <script src="js/gmailSync.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
