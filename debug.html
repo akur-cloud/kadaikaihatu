@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>動作確認用</title>
+  <style>
+    body { font-family: sans-serif; font-size: 14px; margin: 12px; }
+    h1 { font-size: 16px; margin: 0 0 8px; }
+    #player { margin-bottom: 8px; font-weight: bold; }
+    .buttons button { margin: 0 4px 4px 0; }
+    ul { list-style: none; padding: 0; }
+    li { border: 1px solid #ccc; border-radius: 6px; padding: 6px; margin-bottom: 6px; }
+    .rampage { background: #fde8e6; }
+    .angry { background: #fff3e0; }
+    .expired { background: #eee; color: #777; }
+    .defeated { background: #e6f4ea; color: #555; }
+    .state { font-size: 12px; color: #555; }
+    h2 { font-size: 14px; margin: 0 0 6px; }
+    #add-form { border: 1px solid #999; border-radius: 6px; padding: 8px; margin-bottom: 10px; }
+    #add-form label { display: block; margin-bottom: 6px; }
+    #add-form input[type="text"], #add-form input[type="datetime-local"] {
+      width: 100%; box-sizing: border-box; padding: 4px; font-size: 14px; }
+    .message { min-height: 1.2em; font-size: 12px; margin-bottom: 4px; color: #2e7d32; }
+    .message.error { color: #c62828; }
+    details { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <h1>課題RPG：動作確認用</h1>
+  <div id="player"></div>
+  <form id="add-form">
+    <h2>課題を追加</h2>
+    <label>課題名
+      <input type="text" id="title-input" maxlength="50" placeholder="例：プログラミング演習 レポート">
+    </label>
+    <label>提出期限
+      <input type="datetime-local" id="due-input">
+    </label>
+    <label><input type="checkbox" id="nodue-check"> 期限なし</label>
+    <div id="form-message" class="message"></div>
+    <button type="submit">敵を呼び出す</button>
+  </form>
+  <details>
+    <summary>テスト用ボタン</summary>
+  <div class="buttons">
+    <button id="add-5h">敵を追加（残り5時間）</button>
+    <button id="add-2d">敵を追加（残り2日）</button>
+    <button id="add-none">敵を追加（期限なし）</button>
+    <button id="add-past">敵を追加（期限切れ）</button>
+    <button id="reset">全データ削除</button>
+  </div>
+  </details>
+  <ul id="list"></ul>
+  <script src="game.js"></script>
+  <script src="debug.js"></script>
+</body>
+</html>
