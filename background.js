@@ -1,9 +1,8 @@
 // background.js : 締め切りの定期チェックと警告通知（担当：ゲームの仕組み・制限警告）
-// Service Worker は使われないと止まるため、状態は変数ではなく chrome.storage に保存する。
 
-importScripts("game.js"); // getEnemyState などを使う
+importScripts("game.js"); 
 
-// 保存のキー名（担当Bの storage.js とそろえる。変えるときはここだけ直せばよい）
+// 保存のキー名
 const ENEMIES_KEY = "enemies";   // 敵の一覧
 const NOTIFIED_KEY = "notified"; // 通知済みの敵ID { 敵ID: true }
 const ALARM_NAME = "deadline-check";
@@ -65,7 +64,4 @@ async function checkDeadlines() {
   // アイコンに、暴走中の敵の数を表示する
   chrome.action.setBadgeText({ text: rampageCount > 0 ? String(rampageCount) : "" });
   chrome.action.setBadgeBackgroundColor({ color: "#e74c3c" });
-
-  //特定のサイトの閲覧ストップ
-  
 }
