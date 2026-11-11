@@ -32,7 +32,7 @@ function formatTimeLeft(due) {
   return h > 0 ? `あと${h}時間${m}分` : `あと${m}分`;
 }
 
-// ===== 警告の画面を作る（Shadow DOMで、サイト側のCSSの影響を受けないようにする） =====
+// ===== 警告の画面 =====
 function createOverlay() {
   host = document.createElement("div");
   host.id = "kadai-rpg-overlay";
@@ -70,7 +70,7 @@ function createOverlay() {
   });
 }
 
-// 課題の一覧を書き換える（課題名は textContent で入れ、HTMLとして解釈されないようにする）
+// 課題の一覧を書き換える
 function fillList(urgent) {
   listEl.textContent = "";
   for (const e of urgent) {
@@ -119,6 +119,7 @@ function showOverlay(urgent) {
   }
 }
 
+// === 警告を消す ===
 function hideOverlay() {
   clearInterval(countdownTimer);
   if (host && host.isConnected) host.remove();
