@@ -1,14 +1,13 @@
-// game.js : ゲームの仕組み（担当：ゲーム設計）
-// このファイルは chrome API を使わない「計算だけ」の関数です。
-// 保存・読み込み（chrome.storage）は担当Bの storage.js が行います。
+// ゲームの仕組み
 
-// ===== ルール設定（数値はここだけ変えれば調整できます） =====
+// ===== ルール設定 =====
 const BASE_EXP = 10;          // 基本の経験値
 const BONUS_PER_DAY = 5;      // 期限より1日早く出すごとに増える経験値
 const MAX_BONUS_DAYS = 7;     // ボーナスの対象になる最大日数（7日前まで）
 const LEVEL_BASE_EXP = 50;    // レベルnからn+1に必要な経験値 = 50 * n
 
 const DAY_MS = 1000 * 60 * 60 * 24;
+const MAX_NAME_LENGTH = 30;  // 敵の名前の最大文字数
 
 // 敵の種類（作成時にランダムで1つ決めて、敵のデータに保存する）
 const ENEMY_TYPES = [
@@ -20,17 +19,19 @@ const ENEMY_TYPES = [
 
 // ===== 敵の生成 =====
 // title: 課題名 / due: 提出期限（日本時間のISO文字列。なければ null）
+// name: 敵の名前（担当教員名など。省略または空ならランダムな名前になる）
 // now, rng は動作確認用（普段は指定しなくてよい）
-function createEnemy(title, due, now = new Date(), rng = Math.random) {
+function createEnemy(title, due, name = null, now = new Date(), rng = Math.random) {
   const kind = ENEMY_TYPES[Math.floor(rng() * ENEMY_TYPES.length)];
-  const name = kind.names[Math.floor(rng() * kind.names.length)];
+  const randomName = kind.names[Math.floor(rng() * kind.names.length)];
+  const inputName = typeof name === "string" ? name.trim().slice(0, MAX_NAME_LENGTH) : "";
   return {
     id: "enemy_" + now.getTime() + "_" + Math.floor(rng() * 1e6).toString(36),
     title: title,
     due: due ?? null,
     enemyType: kind.type,
     enemyIcon: kind.icon,
-    enemyName: name,
+    enemyName: inputName || randomName, // 入力があればそれを、なければランダムな名前を使う
     defeated: false,
     defeatedAt: null,
     submittedFileName: null,
